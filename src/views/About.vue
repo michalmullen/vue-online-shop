@@ -1,5 +1,27 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-container fluid class="text-center">
+    <v-row justify="center">
+      <v-badge v-model="show" color="cyan" left>
+        <template v-slot:badge>
+          <span>6</span>
+        </template>
+        <v-icon
+          large
+          color="grey lighten-1"
+          @mouseover="show = true"
+          @mouseout="show = false"
+        >fas fa-tachometer-alt</v-icon>
+      </v-badge>
+    </v-row>
+  </v-container>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      show: false
+    };
+  }
+};
+</script>
