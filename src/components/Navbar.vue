@@ -52,7 +52,7 @@
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-badge v-model="show" color="#D7BC2F" class="text--color" left>
-          <template v-slot:badge class="red--text">
+          <template v-slot:badge>
             <span>6</span>
           </template>
           <v-icon @mouseover="show = true" @mouseout="show = false">mdi-cart</v-icon>
