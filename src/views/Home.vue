@@ -4,9 +4,8 @@
       <v-content>
         <h1 class="display-3">
           Order Food You Love
-          <br />With the Enviorment in Mind
+          With the Enviorment in Mind
         </h1>
-        <h1 class="display-3"></h1>
         <p
           class="pt-4"
         >This website offers us the best quality food and beverages at a reasonable price, and here is all natural and organic product which is directly from the farm. They also maintain the food ecosystem. They have the delivery option for different appetite. They also have the chilled facility to maintain the maximum freshness of the food.</p>
@@ -72,8 +71,8 @@
                           type="password"
                         />
                         <v-text-field
-                          id="password"
-                          label="Password"
+                          id="password2"
+                          label="Check Password"
                           name="password"
                           prepend-icon="mdi-lock"
                           type="password"
