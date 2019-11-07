@@ -1,18 +1,7 @@
 <template>
   <v-container fluid class="text-center">
-    <v-row justify="center">
-      <v-badge v-model="show" color="cyan" left>
-        <template v-slot:badge>
-          <span>6</span>
-        </template>
-        <v-icon
-          large
-          color="grey lighten-1"
-          @mouseover="show = true"
-          @mouseout="show = false"
-        >fas fa-tachometer-alt</v-icon>
-      </v-badge>
-    </v-row>
+    <h1>About</h1>
+    <p>This is the about page.</p>
   </v-container>
 </template>
 

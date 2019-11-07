@@ -8,9 +8,15 @@ export default new Vuetify({
     iconfont: 'mdi'
   },
   theme: {
-    primary: '#619952',
-    secondary: '#b0bec5',
-    accent: '#8c9eff',
-    error: '#b71c1c'
+    themes: {
+      light: {
+        primary: '#619952',
+        secondary: '#D7BC2F',
+        accent: '#8c9eff',
+        error: '#b71c1c',
+        gradient:
+          'background-image: linear-gradient(to bottom, #619952, #7aa449, #96ae40, #b5b636, #d7bc2f);'
+      }
+    }
   }
 });

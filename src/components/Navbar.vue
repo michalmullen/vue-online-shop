@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" :width="200" app clipped>
+    <v-navigation-drawer v-model="drawer" :width="200" app clipped temporary>
       <v-list dense>
         <v-list-item link to="/user">
           <v-list-item-action>
@@ -10,7 +10,7 @@
             <v-list-item-title>Mitchell Mullen</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider class="p-1"></v-divider>
+        <v-divider></v-divider>
         <v-list-item link to="/">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
@@ -40,11 +40,11 @@
         <v-icon>mid-logout</v-icon>
         <div class="pa-2">
           <v-icon>mid-logout</v-icon>
-          <v-btn block color="#E9D046">Logout</v-btn>
+          <v-btn block color="secondary">Logout</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
-    <v-app-bar app clipped-left color="#619952" dark>
+    <v-app-bar app clipped-left color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-spacer></v-spacer>
       <v-toolbar-title class="font-weight-black" link to="/">Zero Waste Foods</v-toolbar-title>
@@ -53,7 +53,7 @@
       <v-btn icon>
         <v-badge v-model="show" color="#D7BC2F" class="text--color" left>
           <template v-slot:badge>
-            <span>6</span>
+            <span>0</span>
           </template>
           <v-icon @mouseover="show = true" @mouseout="show = false">mdi-cart</v-icon>
         </v-badge>
