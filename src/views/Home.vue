@@ -81,7 +81,7 @@
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer />
-                      <v-btn color="secondary">Register</v-btn>
+                      <v-btn color="secondary" @click="register">Register</v-btn>
                     </v-card-actions>
                   </v-tab-item>
                 </v-tabs-items>
@@ -116,6 +116,26 @@ export default {
       let fetchData = {
         method: "POST",
         body: data,
+        headers: new Headers()
+      };
+      fetch(url, fetchData) // Call the fetch function passing the url of the API as a parameter
+        .then(function(data) {
+          console.log(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    register() {
+      const url = "localhost/flight/user/1";
+      // The data we are going to send in our request
+      let data = {
+        email: this.loginEmail,
+        password: this.loginPassword
+      };
+      // The parameters we are gonna pass to the fetch function
+      let fetchData = {
+        method: "GET",
         headers: new Headers()
       };
       fetch(url, fetchData) // Call the fetch function passing the url of the API as a parameter
