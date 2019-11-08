@@ -4,7 +4,7 @@
       <v-content>
         <h1 class="display-3">
           Order Food You Love
-          With the Enviorment in Mind
+          With the Environment in Mind
         </h1>
         <p
           class="pt-4"
@@ -106,6 +106,25 @@ export default {
   methods: {
     login() {
       console.log(this.loginEmail, this.loginPassword);
+      const url = "localhost/flight/login";
+      // The data we are going to send in our request
+      let data = {
+        email: this.loginEmail,
+        password: this.loginPassword
+      };
+      // The parameters we are gonna pass to the fetch function
+      let fetchData = {
+        method: "POST",
+        body: data,
+        headers: new Headers()
+      };
+      fetch(url, fetchData) // Call the fetch function passing the url of the API as a parameter
+        .then(function(data) {
+          console.log(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 };
