@@ -127,12 +127,12 @@ export default {
         });
     },
     register() {
+<<<<<<< HEAD
       fetch("localhost/fligt/logout", { method: "GET" }) // Call the fetch function passing the url of the API as a parameter
         .then(function(data) {
+=======
+>>>>>>> a1ccb3574ece3cb88c196885c1308673a7017557
           console.log(data);
-        })
-        .catch(function(error) {
-          console.log(error);
         });
     }
   }

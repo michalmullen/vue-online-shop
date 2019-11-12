@@ -13,9 +13,7 @@ export default new Vuetify({
         primary: '#619952',
         secondary: '#D7BC2F',
         accent: '#8c9eff',
-        error: '#b71c1c',
-        gradient:
-          'background-image: linear-gradient(to bottom, #619952, #7aa449, #96ae40, #b5b636, #d7bc2f);'
+        error: '#b71c1c'
       }
     }
   }
