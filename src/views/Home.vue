@@ -127,18 +127,7 @@ export default {
         });
     },
     register() {
-      const url = "localhost/flight/user/1";
-      // The data we are going to send in our request
-      let data = {
-        email: this.loginEmail,
-        password: this.loginPassword
-      };
-      // The parameters we are gonna pass to the fetch function
-      let fetchData = {
-        method: "GET",
-        headers: new Headers()
-      };
-      fetch(url, fetchData) // Call the fetch function passing the url of the API as a parameter
+      fetch("localhost/fligt/logout", { method: "GET" }) // Call the fetch function passing the url of the API as a parameter
         .then(function(data) {
           console.log(data);
         })
