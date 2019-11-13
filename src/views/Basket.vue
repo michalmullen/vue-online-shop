@@ -1,43 +1,48 @@
 <template>
   <v-container class="mx-auto">
-    <h1>Today's Menu</h1>
-    <v-row>
-      <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
+    <h1>Your Basket</h1>
+    <v-layout row wrap>
+      <v-flex v-for="card in basket" :key="card.title" xs12 md6 fluid class="pa-4">
         <v-card>
           <v-img
             :src="card.src"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="200px"
+            height="250px"
           >
             <v-card-title v-text="card.title"></v-card-title>
           </v-img>
 
+          <v-card-text>
+            <v-row align="center" class="mx-0 pb-2">
+              <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
+
+              <div class="grey--text ml-4">4.5 (413)</div>
+            </v-row>
+
+            <!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
+
+            <div>Small plates, salads & sandwiches an inteimate setting with 12 indoor seats plus patio seating.</div>
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-
             <v-btn icon>
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-              <v-icon>mdi-bookmark</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-              <v-icon>mdi-cart-plus</v-icon>
+              <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>
-      </v-col>
-    </v-row>
+      </v-flex>
+    </v-layout>
+    <div class="text-right">
+      <v-btn rounded color="secondary">Checkout</v-btn>
+    </div>
   </v-container>
 </template>
 
 <script>
 export default {
   data: () => ({
-    cards: [
+    basket: [
       {
         title: "Pre-fab homes",
         src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",

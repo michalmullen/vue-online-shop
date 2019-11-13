@@ -19,12 +19,12 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/shop">
+        <v-list-item link to="/menu">
           <v-list-item-action>
-            <v-icon>mdi-shopping</v-icon>
+            <v-icon>mdi-food-apple</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Shop</v-list-item-title>
+            <v-list-item-title>Menu</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/about">
@@ -37,9 +37,7 @@
         </v-list-item>
       </v-list>
       <template v-slot:append>
-        <v-icon>mid-logout</v-icon>
         <div class="pa-2">
-          <v-icon>mid-logout</v-icon>
           <v-btn block color="secondary">Logout</v-btn>
         </div>
       </template>
@@ -50,7 +48,7 @@
       <v-toolbar-title class="font-weight-black" link to="/">Zero Waste Foods</v-toolbar-title>
       <v-icon class="pl-1">mdi-leaf</v-icon>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon link to="/basket">
         <v-badge v-model="show" color="#D7BC2F" class="text--color" left>
           <template v-slot:badge>
             <span>0</span>

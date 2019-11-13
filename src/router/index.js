@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
-import Shop from "../views/Shop.vue";
+import Menu from "../views/Menu.vue";
+import Basket from "../views/Basket.vue";
 
 Vue.use(VueRouter);
 
@@ -22,9 +23,14 @@ const routes = [
 		//component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
 	},
 	{
-		path: "/shop",
-		name: "shop",
-		component: Shop
+		path: "/menu",
+		name: "menu",
+		component: Menu
+	},
+	{
+		path: "/basket",
+		name: "basket",
+		component: Basket
 	}
 ];
 
