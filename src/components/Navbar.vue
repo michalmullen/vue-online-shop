@@ -51,7 +51,7 @@
       <v-btn icon link to="/basket">
         <v-badge v-model="show" color="#D7BC2F" class="text--color" left>
           <template v-slot:badge>
-            <span>0</span>
+            <span>4</span>
           </template>
           <v-icon @mouseover="show = true" @mouseout="show = false">mdi-cart</v-icon>
         </v-badge>
