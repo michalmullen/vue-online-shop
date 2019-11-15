@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Menu from "../views/Menu.vue";
 import Basket from "../views/Basket.vue";
+import Admin from "../views/Admin.vue";
+import User from "../views/User.vue";
 
 Vue.use(VueRouter);
 
@@ -31,6 +33,16 @@ const routes = [
 		path: "/basket",
 		name: "basket",
 		component: Basket
+	},
+	{
+		path: "/admin",
+		name: "admin",
+		component: Admin
+	},
+	{
+		path: "/user",
+		name: "user",
+		component: User
 	}
 ];
 
