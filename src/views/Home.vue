@@ -105,48 +105,8 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import {
-	required,
-	maxLength,
-	minLength,
-	email
-} from "vuelidate/lib/validators";
 
 export default {
-	mixins: [validationMixin],
-
-	validations: {
-		name: { required, maxLength: maxLength(10) },
-		email: { required, email },
-		password: { required, minLength: minLength(8) }
-	},
-	computed: {
-		nameErrors() {
-			const errors = [];
-			if (!this.$v.name.$dirty) return errors;
-			!this.$v.name.maxLength &&
-				errors.push("Name must be at most 10 characters long");
-			!this.$v.name.required && errors.push("Name is required.");
-			return errors;
-		},
-		emailErrors() {
-			const errors = [];
-			if (!this.$v.email.$dirty) return errors;
-			!this.$v.email.email && errors.push("Must be valid e-mail");
-			!this.$v.email.required && errors.push("E-mail is required");
-			return errors;
-		},
-		passwordErrors() {
-			const errors = [];
-			if (!this.$v.name.$dirty) return errors;
-			!this.$v.password.minLength &&
-				errors.push("Name must be at most 10 characters long");
-			!this.$v.name.required && errors.push("Name is required.");
-			return errors;
-		}
-	},
-
 	data() {
 		return {
 			loginEmail: "",
@@ -159,27 +119,16 @@ export default {
 	},
 	methods: {
 		login() {
-			console.log(this.loginEmail, this.loginPassword);
-			const url = "localhost/flight/login";
-			// The data we are going to send in our request
-			let data = {
-				email: this.loginEmail,
-				password: this.loginPassword
-			};
-			// The parameters we are gonna pass to the fetch function
-			let fetchData = {
-				method: "POST",
-				body: data,
-				headers: new Headers()
-			};
-			fetch(url, fetchData) // Call the fetch function passing the url of the API as a parameter
-				.then(function(data) {
-					console.log(data);
-				})
-				.catch(function(error) {
-					console.log(error);
-				});
-		}
+			axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 	},
 	register() {
 		this.$v.$touch();
