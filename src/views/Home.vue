@@ -64,7 +64,6 @@
 													label="Name"
 													name="name"
 													v-model="name"
-													:error-messages="nameErrors"
 													prepend-icon="mdi-account"
 													type="text"
 												/>
@@ -72,7 +71,6 @@
 													label="Email"
 													name="email"
 													v-model="email"
-													:error-messages="nameErrors"
 													prepend-icon="mdi-email"
 													type="email"
 												/>
@@ -80,7 +78,6 @@
 													id="password"
 													label="Password"
 													v-model="password"
-													:error-messages="passwordErrors"
 													name="password"
 													prepend-icon="mdi-lock"
 													type="password"
@@ -105,6 +102,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 
 export default {
 	data() {
@@ -119,19 +117,32 @@ export default {
 	},
 	methods: {
 		login() {
-			axios.post('/user', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-	},
-	register() {
-		this.$v.$touch();
+			Vue.axios
+				.post("http://localhost/flight/login", {
+					email: "locinEmail",
+					password: "loginPassword"
+				})
+				.then(function(response) {
+					console.log(response);
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
+		register() {
+			const url = "http://localhost/flight/";
+			const options = {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json;charset=UTF-8"
+				}
+			};
+
+			fetch(url, options).then(response => {
+				console.log(response.status);
+			});
+		}
 	}
 };
 </script>
