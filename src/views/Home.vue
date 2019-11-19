@@ -119,8 +119,8 @@ export default {
 		login() {
 			Vue.axios
 				.post("http://localhost/flight/login", {
-					email: "locinEmail",
-					password: "loginPassword"
+					email: loginEmail,
+					password: loginPassword
 				})
 				.then(function(response) {
 					console.log(response);
