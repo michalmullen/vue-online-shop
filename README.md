@@ -33,3 +33,13 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### How to connect to the api during Development
+
+`windows` + `r`
+
+then paste
+
+```
+chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
+```

@@ -118,9 +118,9 @@ export default {
 	methods: {
 		login() {
 			Vue.axios
-				.post("http://localhost/flight/login", {
-					email: loginEmail,
-					password: loginPassword
+				.post("http://localhost/api/login", {
+					email: this.loginEmail,
+					password: this.loginPassword
 				})
 				.then(function(response) {
 					console.log(response);
@@ -128,20 +128,22 @@ export default {
 				.catch(function(error) {
 					console.log(error);
 				});
+			localStorage.setItem("login", true);
 		},
 		register() {
-			const url = "http://localhost/flight/";
-			const options = {
-				method: "GET",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json;charset=UTF-8"
-				}
-			};
-
-			fetch(url, options).then(response => {
-				console.log(response.status);
-			});
+			Vue.axios
+				.post("http://localhost/api/user", {
+					name: this.name,
+					email: this.email,
+					password: this.password
+				})
+				.then(function(response) {
+					this.tabs = null;
+					console.log(response);
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
 		}
 	}
 };

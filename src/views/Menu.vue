@@ -32,6 +32,8 @@
 							></v-rating>
 
 							<div class="grey--text ml-4">4.5 (413)</div>
+							<v-spacer></v-spacer>
+							<v-icon>mdi-currency-usd</v-icon>
 						</v-row>
 
 						<!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
