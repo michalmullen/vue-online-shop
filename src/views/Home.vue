@@ -33,13 +33,17 @@
 								<v-tabs-items v-model="tabs">
 									<v-tab-item>
 										<v-card-text>
-											<v-form>
+											<v-form ref="form">
 												<v-text-field
 													label="Email"
 													name="email"
 													prepend-icon="mdi-email"
 													type="email"
 													v-model="loginEmail"
+													required
+													@change="$v.email.$touch()"
+													:error-messages="emailErrors"
+													@blur="$v.email.$touch()"
 												/>
 
 												<v-text-field
@@ -49,6 +53,11 @@
 													prepend-icon="mdi-lock"
 													type="password"
 													v-model="loginPassword"
+													required
+													:error-messages="nameErrors"
+													:counter="8"
+													@input="$v.name.$touch()"
+													@blur="$v.name.$touch()"
 												/>
 											</v-form>
 										</v-card-text>
@@ -59,7 +68,7 @@
 									</v-tab-item>
 									<v-tab-item>
 										<v-card-text>
-											<v-form>
+											<v-form ref="form">
 												<v-text-field
 													label="Name"
 													name="name"
@@ -81,6 +90,7 @@
 													name="password"
 													prepend-icon="mdi-lock"
 													type="password"
+													required
 												/>
 											</v-form>
 										</v-card-text>
@@ -103,8 +113,22 @@
 
 <script>
 import Vue from "vue";
+import { validationMixin } from "vuelidate";
+import { required, minLength, email } from "vuelidate/lib/validators";
 
 export default {
+	mixins: [validationMixin],
+
+	validations: {
+		name: { required, minLength: minLength(8) },
+		email: { required, email },
+		select: { required },
+		checkbox: {
+			checked(val) {
+				return val;
+			}
+		}
+	},
 	data() {
 		return {
 			loginEmail: "",
@@ -115,6 +139,25 @@ export default {
 			tabs: null
 		};
 	},
+
+	computed: {
+		nameErrors() {
+			const errors = [];
+			if (!this.$v.name.$dirty) return errors;
+			!this.$v.name.minLength &&
+				errors.push("Password must be at least 8 characters long.");
+			!this.$v.name.required && errors.push("Password is required.");
+			return errors;
+		},
+		emailErrors() {
+			const errors = [];
+			if (!this.$v.email.$dirty) return errors;
+			!this.$v.email.email && errors.push("Must be valid e-mail");
+			!this.$v.email.required && errors.push("E-mail is required");
+			return errors;
+		}
+	},
+
 	methods: {
 		login() {
 			Vue.axios
@@ -123,12 +166,17 @@ export default {
 					password: this.loginPassword
 				})
 				.then(function(response) {
-					console.log(response);
+					console.log(response.data[0]);
+					this.$refs.form.reset();
+					//localStorage.setItem('userId', response.data[0])
+					//localStorage.setItem("login", true);
 				})
 				.catch(function(error) {
-					console.log(error);
+					console.log(error.response.data[0]);
+					//localStorage.setItem("login", false);
 				});
-			localStorage.setItem("login", true);
+			//this.reset();
+			this.$v.$touch();
 		},
 		register() {
 			Vue.axios
@@ -144,6 +192,9 @@ export default {
 				.catch(function(error) {
 					console.log(error);
 				});
+		},
+		reset() {
+			this.$refs.form.reset();
 		}
 	}
 };
