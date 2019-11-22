@@ -6,6 +6,7 @@ import Menu from "../views/Menu.vue";
 import Basket from "../views/Basket.vue";
 import Admin from "../views/Admin.vue";
 import User from "../views/User.vue";
+import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,14 @@ const routes = [
 		component: Welcome,
 		meta: {
 			guest: true
+		}
+	},
+	{
+		path: "/",
+		name: "home",
+		component: Home,
+		meta: {
+			requiresAuth: true
 		}
 	},
 	{
@@ -71,7 +80,7 @@ router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.requiresAuth)) {
 		if (localStorage.getItem("jwt") == null) {
 			next({
-				path: "/login",
+				path: "/welcome",
 				params: { nextUrl: to.fullPath }
 			});
 		} else {
