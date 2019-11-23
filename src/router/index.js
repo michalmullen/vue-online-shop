@@ -20,7 +20,7 @@ const routes = [
 		}
 	},
 	{
-		path: "/",
+		path: "/home",
 		name: "home",
 		component: Home,
 		meta: {
@@ -78,7 +78,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.requiresAuth)) {
-		if (localStorage.getItem("jwt") == null) {
+		if (localStorage.getItem("id") == null) {
 			next({
 				path: "/welcome",
 				params: { nextUrl: to.fullPath }
@@ -86,7 +86,7 @@ router.beforeEach((to, from, next) => {
 		} else {
 			let user = JSON.parse(localStorage.getItem("user"));
 			if (to.matched.some(record => record.meta.is_admin)) {
-				if (user.is_admin == 1) {
+				if (user.admin == 1) {
 					next();
 				} else {
 					next({ name: "userboard" });
@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
 			}
 		}
 	} else if (to.matched.some(record => record.meta.guest)) {
-		if (localStorage.getItem("jwt") == null) {
+		if (localStorage.getItem("id") == null) {
 			next();
 		} else {
 			next({ name: "userboard" });
