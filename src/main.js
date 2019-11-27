@@ -1,18 +1,18 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import vuetify from './plugins/vuetify';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import * as VeeValidate from 'vee-validate';
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import vuetify from "./plugins/vuetify";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  vuetify,
-  VeeValidate,
-  render: h => h(App)
-}).$mount('#app');
+var vm = new Vue({
+	router,
+	vuetify,
+	render: h => h(App)
+}).$mount("#app");
 
-Vue.use(VueAxios, axios, VeeValidate);
+global.vm = vm;
+
+Vue.use(VueAxios, axios);

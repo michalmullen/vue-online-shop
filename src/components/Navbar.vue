@@ -4,14 +4,14 @@
 			<v-list dense>
 				<v-list-item link to="/user">
 					<v-list-item-action>
-						<v-icon>mdi-account</v-icon>
+						<v-icon>{{ account }}</v-icon>
 					</v-list-item-action>
 					<v-list-item-content>
-						<v-list-item-title>Mitchell Mullen</v-list-item-title>
+						<v-list-item-title>{{ name }}</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 				<v-divider></v-divider>
-				<v-list-item link to="/home">
+				<v-list-item link to="/">
 					<v-list-item-action>
 						<v-icon>mdi-home</v-icon>
 					</v-list-item-action>
@@ -36,7 +36,7 @@
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
-			<template v-slot:append>
+			<template v-slot:append v-if="loggedIn === true">
 				<div class="pa-2">
 					<v-btn block color="secondary" @click="logout">Logout</v-btn>
 				</div>
@@ -76,13 +76,36 @@ export default {
 		drawer: false,
 		show: false,
 		basket: 0,
-		name: "Bob"
+		name: "No User",
+		loggedIn: false,
+		account: "mdi-account"
 	}),
+	created() {
+		// gets called when page is loaded
+		this.checkIfIsLogged();
+		console.log(this.loggedIn);
+	},
+	watch: {
+		// call again the method if the route changes
+		$route: "checkIfIsLogged"
+	},
 	methods: {
 		logout() {
 			localStorage.clear();
 			Vue.axios.get("http://localhost/api/logout");
 			this.$router.push("Welcome");
+		},
+		checkIfIsLogged() {
+			if (localStorage.getItem("id") == null) {
+				this.loggedIn = false;
+				this.account = "mdi-account-off";
+				this.name = "No User";
+			} else {
+				let user = JSON.parse(localStorage.getItem("user"));
+				this.loggedIn = true;
+				this.account = "mdi-account";
+				this.name = user.name;
+			}
 		}
 	}
 };

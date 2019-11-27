@@ -162,6 +162,7 @@ export default {
 						let is_admin = response.data.admin;
 						localStorage.setItem("user", JSON.stringify(response.data));
 						localStorage.setItem("id", response.data.id);
+						//vm.$refs.foo.checkIfIsLogged();
 						if (localStorage.getItem("id") != null) {
 							this.$emit("loggedIn");
 							if (this.$route.params.nextUrl != null) {
@@ -171,7 +172,7 @@ export default {
 								if (is_admin == 1) {
 									this.$router.push("admin");
 								} else {
-									this.$router.push("home");
+									this.$router.push("/");
 								}
 							}
 						}

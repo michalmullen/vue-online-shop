@@ -20,7 +20,7 @@ const routes = [
 		}
 	},
 	{
-		path: "/home",
+		path: "/",
 		name: "home",
 		component: Home,
 		meta: {
@@ -89,7 +89,7 @@ router.beforeEach((to, from, next) => {
 				if (user.admin == 1) {
 					next();
 				} else {
-					next({ name: "userboard" });
+					next({ name: "home" });
 				}
 			} else {
 				next();
@@ -99,7 +99,7 @@ router.beforeEach((to, from, next) => {
 		if (localStorage.getItem("id") == null) {
 			next();
 		} else {
-			next({ name: "userboard" });
+			next({ name: "home" });
 		}
 	} else {
 		next();
