@@ -86,7 +86,7 @@ export default {
 		console.log(this.loggedIn);
 	},
 	watch: {
-		// call again the method if the route changes
+		// call method if the route changes
 		$route: "checkIfIsLogged"
 	},
 	methods: {

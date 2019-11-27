@@ -34,6 +34,7 @@
 							<div class="grey--text ml-4">4.5 (413)</div>
 							<v-spacer></v-spacer>
 							<v-icon>mdi-currency-usd</v-icon>
+							<h2 v-text="card.price"></h2>
 						</v-row>
 
 						<!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
@@ -71,22 +72,26 @@ export default {
 			{
 				id: 1,
 				title: "Burger",
-				src: "https://cdn.vuetifyjs.com/images/cards/house.jpg"
+				src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+				price: 200
 			},
 			{
 				id: 2,
 				title: "Salad",
-				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg"
+				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
+				price: 200
 			},
 			{
 				id: 3,
 				title: "Spaget",
-				src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg"
+				src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+				price: 200
 			},
 			{
 				id: 4,
 				title: "Soup",
-				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg"
+				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
+				price: 200
 			}
 		]
 	}),
