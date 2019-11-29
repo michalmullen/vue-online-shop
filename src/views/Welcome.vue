@@ -26,8 +26,8 @@
 										grow
 										icons-and-text
 									>
-										<v-tab>Login</v-tab>
-										<v-tab>Register</v-tab>
+										<v-tab @click="reset">Login</v-tab>
+										<v-tab @click="reset">Register</v-tab>
 									</v-tabs>
 								</v-toolbar>
 								<v-tabs-items v-model="tabs">
@@ -162,7 +162,6 @@ export default {
 						let is_admin = response.data.admin;
 						localStorage.setItem("user", JSON.stringify(response.data));
 						localStorage.setItem("id", response.data.id);
-						//vm.$refs.foo.checkIfIsLogged();
 						if (localStorage.getItem("id") != null) {
 							this.$emit("loggedIn");
 							if (this.$route.params.nextUrl != null) {

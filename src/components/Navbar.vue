@@ -27,6 +27,14 @@
 						<v-list-item-title>Menu</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item link to="/admin" v-if="admin === true">
+					<v-list-item-action>
+						<v-icon>mdi-account-supervisor</v-icon>
+					</v-list-item-action>
+					<v-list-item-content>
+						<v-list-item-title>Admin</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-list-item link to="/about">
 					<v-list-item-action>
 						<v-icon>mdi-information</v-icon>
@@ -78,12 +86,13 @@ export default {
 		basket: 0,
 		name: "No User",
 		loggedIn: false,
-		account: "mdi-account"
+		account: "mdi-account",
+		admin: false
 	}),
 	created() {
 		// gets called when page is loaded
 		this.checkIfIsLogged();
-		console.log(this.loggedIn);
+		//console.log(this.loggedIn);
 	},
 	watch: {
 		// call method if the route changes
@@ -100,11 +109,15 @@ export default {
 				this.loggedIn = false;
 				this.account = "mdi-account-off";
 				this.name = "No User";
+				this.admin = false;
 			} else {
 				let user = JSON.parse(localStorage.getItem("user"));
 				this.loggedIn = true;
 				this.account = "mdi-account";
 				this.name = user.name;
+				if (user.admin == 1) {
+					this.admin = true;
+				}
 			}
 		}
 	}
