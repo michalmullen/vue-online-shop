@@ -31,12 +31,7 @@
 								<v-card>
 									<v-card-text>
 										<v-container>
-											<v-row
-												sm="3"
-												md="2"
-												v-for="item in menuItems"
-												:key="item.title"
-											>
+											<v-row v-for="item in menuItems" :key="item.title">
 												<v-checkbox
 													v-model="selected"
 													:label="item.title"
@@ -49,7 +44,9 @@
 									<v-card-actions>
 										<v-spacer></v-spacer>
 										<v-btn color="secondary" text @click="close">Cancel</v-btn>
-										<v-btn color="secondary" text @click="save">Save</v-btn>
+										<v-btn color="secondary" text @click="save(card.id)"
+											>Save</v-btn
+										>
 									</v-card-actions>
 								</v-card>
 							</v-dialog>
@@ -93,22 +90,27 @@ export default {
 		cards: [
 			{
 				day: "Monday",
+				id: 0,
 				items: []
 			},
 			{
 				day: "Tuesday",
+				id: 1,
 				items: []
 			},
 			{
 				day: "Wednesday",
+				id: 2,
 				items: []
 			},
 			{
 				day: "Thurday",
+				id: 3,
 				items: []
 			},
 			{
 				day: "Friday",
+				id: 4,
 				items: []
 			}
 		]
@@ -153,12 +155,14 @@ export default {
 			}, 300);
 		},
 
-		save() {
-			if (this.editedIndex > -1) {
-				Object.assign(this.desserts[this.editedIndex], this.editedItem);
-			} else {
-				this.desserts.push(this.editedItem);
-			}
+		save(index) {
+			console.log(index);
+			console.log(this.selected);
+			// if (this.editedIndex > -1) {
+			// 	Object.assign(this.desserts[this.editedIndex], this.editedItem);
+			// } else {
+			// 	this.desserts.push(this.editedItem);
+			// }
 			this.close();
 		}
 	}
