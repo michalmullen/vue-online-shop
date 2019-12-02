@@ -2,10 +2,10 @@
 	<v-container>
 		<v-card>
 			<v-card-title>
-				<v-icon class="pr-1">mdi-account</v-icon>Name
+				<v-icon class="pr-1">mdi-account</v-icon>{{ user.name }}
 			</v-card-title>
 			<v-card-subtitle>
-				<v-icon small class="pr-1 pl-1">mdi-email</v-icon>Email
+				<v-icon small class="pr-1 pl-1">mdi-email</v-icon>{{ user.email }}
 			</v-card-subtitle>
 			<v-card-text>Coin Amount: {{ coins }}</v-card-text>
 			<v-card-actions>
@@ -24,9 +24,34 @@
 </template>
 
 <script>
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+
+Vue.use(VueAxios, axios);
+
 export default {
 	data: () => ({
+		user: JSON.parse(localStorage.getItem("user")),
 		coins: 0
-	})
+	}),
+	created() {
+		this.coins = parseInt(this.user.coins);
+	},
+	beforeDestroy() {
+		var params = new URLSearchParams();
+		params.append("email", this.user.email);
+		params.append("password", this.user.password);
+		params.append("name", this.user.name);
+		params.append("coins", this.coins);
+		Vue.axios
+			.put(`http://localhost/api/user/${this.user.id}`, params)
+			.then(response => {
+				console.log(response);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}
 };
 </script>
