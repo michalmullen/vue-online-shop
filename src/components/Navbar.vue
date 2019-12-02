@@ -118,6 +118,13 @@ export default {
 				if (user.admin == 1) {
 					this.admin = true;
 				}
+				Vue.axios
+					.get(`http://localhost/api/user/${localStorage.getItem("id")}`)
+					.then(response => {
+						console.log("changing data");
+						console.log(response.data);
+						localStorage.setItem("user", JSON.stringify(response.data));
+					});
 			}
 		}
 	}
