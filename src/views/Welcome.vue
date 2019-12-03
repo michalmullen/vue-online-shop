@@ -195,6 +195,8 @@ export default {
 					})
 					.catch(error => {
 						console.log(error);
+						this.overlayData = error.response.data[0];
+						this.overlay = true;
 					});
 			}
 		},

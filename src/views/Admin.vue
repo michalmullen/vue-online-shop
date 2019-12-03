@@ -20,7 +20,7 @@
 
 						<v-menu offset-y>
 							<template v-slot:activator="{ on }">
-								<v-btn color="primary" dark v-on="on">
+								<v-btn color="secondary" dark v-on="on">
 									Add Item
 								</v-btn>
 							</template>
@@ -111,9 +111,46 @@ export default {
 			.catch(error => {
 				console.log(error);
 			});
+		Vue.axios
+			.get("http://localhost/api/menu")
+			.then(response => {
+				this.cards = JSON.parse(response.data.menu);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	},
+
+	beforeMount() {
+		window.addEventListener("beforeunload", this.sendData);
+	},
+
+	beforeDestroy() {
+		let params = new URLSearchParams();
+		params.append("menu", JSON.stringify(this.cards));
+		Vue.axios
+			.put(`http://localhost/api/menu`, params)
+			.then(response => {
+				console.log(response);
+			})
+			.catch(error => {
+				console.log(error);
+			});
 	},
 
 	methods: {
+		sendData() {
+			let params = new URLSearchParams();
+			params.append("menu", JSON.stringify(this.cards));
+			Vue.axios
+				.put(`http://localhost/api/menu`, params)
+				.then(response => {
+					console.log(response);
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		},
 		deleteItem(cardId, itemId) {
 			let index = this.cards[cardId].items.findIndex(obj => obj.id == itemId);
 			this.cards[cardId].items.splice(index, 1);

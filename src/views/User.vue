@@ -40,8 +40,7 @@ export default {
 	},
 	methods: {
 		putData() {
-			console.log("putting coin data");
-			var params = new URLSearchParams();
+			let params = new URLSearchParams();
 			params.append("email", this.user.email);
 			params.append("password", this.user.password);
 			params.append("name", this.user.name);
