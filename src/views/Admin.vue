@@ -101,18 +101,6 @@ export default {
 		]
 	}),
 
-	computed: {
-		formTitle() {
-			return this.editedIndex === -1 ? "New Item" : "Edit Item";
-		}
-	},
-
-	watch: {
-		dialog(val) {
-			val || this.close();
-		}
-	},
-
 	created() {
 		Vue.axios
 			.get("http://localhost/api/item")
@@ -131,17 +119,8 @@ export default {
 			this.cards[cardId].items.splice(index, 1);
 		},
 
-		close() {
-			this.dialog = false;
-			setTimeout(() => {
-				this.editedItem = Object.assign({}, this.defaultItem);
-				this.editedIndex = -1;
-			}, 300);
-		},
-
 		save(cardId, itemId) {
 			this.cards[cardId].items.push(this.menuItems[itemId]);
-			this.close();
 		}
 	}
 };

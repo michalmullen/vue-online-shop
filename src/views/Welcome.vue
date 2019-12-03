@@ -33,7 +33,7 @@
 								<v-tabs-items v-model="tabs">
 									<v-tab-item>
 										<v-card-text>
-											<v-form ref="form" v-model="valid" lazy-validation>
+											<v-form ref="form">
 												<v-text-field
 													label="E-mail"
 													name="email"
@@ -89,7 +89,7 @@
 													name="password"
 													prepend-icon="mdi-lock"
 													type="password"
-													:rules="passRules"
+													:rules="passwordRules"
 													required
 												/>
 											</v-form>
@@ -128,29 +128,26 @@ export default {
 			email: "",
 			password: "",
 			tabs: null,
-			valid: true,
 			absolute: true,
 			overlay: false,
-			overlayData: "asdfasdf",
+			overlayData: "",
 			emailRules: [
 				v => !!v || "E-mail is required",
 				v => /.+@.+\..+/.test(v) || "E-mail must be valid"
 			],
 			passRules: [
 				v => !!v || "Password is required",
-				v => 8 <= v.length || "Name must be 8 or more characters long"
+				v => 7 < v.length || "Name must be 8 or more characters long"
+			],
+			passwordRules: [
+				v => !!v || "Password is required",
+				v => 7 < v.length || "Name must be 8 or more characters long"
 			],
 			nameRules: [v => !!v || "Name is required"]
 		};
 	},
 	methods: {
-		clear() {
-			this.loginEmail = "";
-			this.loginPassword = "";
-			this.$validator.reset();
-		},
 		login() {
-			this.reset;
 			if (this.$refs.form.validate()) {
 				Vue.axios
 					.post("http://localhost/api/login", {
@@ -193,6 +190,7 @@ export default {
 					})
 					.then(response => {
 						this.tabs = 0;
+						this.reset;
 						console.log(response);
 					})
 					.catch(error => {
@@ -201,10 +199,11 @@ export default {
 			}
 		},
 		reset() {
-			this.$refs.form.reset();
-		},
-		resetValidation() {
-			this.$refs.form.resetValidation();
+			this.loginEmail = "";
+			this.loginPassword = "";
+			this.name = "";
+			this.email = "";
+			this.password = "";
 		}
 	}
 };

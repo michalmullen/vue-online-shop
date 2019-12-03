@@ -17,10 +17,13 @@
 						gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
 						height="250px"
 					>
-						<v-card-title v-text="card.title"></v-card-title>
+						<v-card-title>{{ card.title }} ({{ card.price }}$)</v-card-title>
 					</v-img>
 
-					<v-card-text>
+					<v-card-text style="position: relative">
+						<v-btn absolute dark fab top right color="secondary">
+							<v-icon>mdi-cart</v-icon>
+						</v-btn>
 						<v-row align="center" class="mx-0 pb-2">
 							<v-rating
 								:value="4.5"
@@ -33,8 +36,6 @@
 
 							<div class="grey--text ml-4">4.5 (413)</div>
 							<v-spacer></v-spacer>
-							<v-icon>mdi-currency-usd</v-icon>
-							<h2 v-text="card.price"></h2>
 						</v-row>
 
 						<!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
@@ -44,21 +45,6 @@
 							indoor seats plus patio seating.
 						</div>
 					</v-card-text>
-					<v-card-actions>
-						<v-spacer></v-spacer>
-						<v-tooltip bottom>
-							<template v-slot:activator="{ on }">
-								<v-icon v-on="on" class="pr-2">mdi-cart-arrow-right</v-icon>
-							</template>
-							<span>Buy Now</span>
-						</v-tooltip>
-						<v-tooltip bottom>
-							<template v-slot:activator="{ on }" @click="basket(card.id)">
-								<v-icon v-on="on">mdi-cart-plus</v-icon>
-							</template>
-							<span>Add to Basket</span>
-						</v-tooltip>
-					</v-card-actions>
 				</v-card>
 			</v-flex>
 		</v-layout>
@@ -73,25 +59,25 @@ export default {
 				id: 1,
 				title: "Burger",
 				src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-				price: 200
+				price: 20
 			},
 			{
 				id: 2,
 				title: "Salad",
 				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-				price: 200
+				price: 10
 			},
 			{
 				id: 3,
 				title: "Spaget",
 				src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-				price: 200
+				price: 23
 			},
 			{
 				id: 4,
 				title: "Soup",
 				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-				price: 200
+				price: 16
 			}
 		]
 	}),
