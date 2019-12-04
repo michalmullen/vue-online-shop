@@ -155,16 +155,15 @@ export default {
 						password: this.loginPassword
 					})
 					.then(response => {
-						console.log(response.data);
 						let is_admin = response.data.admin;
 						localStorage.setItem("user", JSON.stringify(response.data));
 						localStorage.setItem("id", response.data.id);
 						if (localStorage.getItem("id") != null) {
+							this.setMenu;
 							this.$emit("loggedIn");
 							if (this.$route.params.nextUrl != null) {
 								this.$router.push(this.$route.params.nextUrl);
 							} else {
-								console.log(is_admin);
 								if (is_admin == 1) {
 									this.$router.push("admin");
 								} else {
@@ -206,6 +205,16 @@ export default {
 			this.name = "";
 			this.email = "";
 			this.password = "";
+		},
+		setMenu() {
+			Vue.axios
+				.get("http://localhost/api/menu")
+				.then(response => {
+					localStorage.setItem("menu", response.data.menu);
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
 	}
 };

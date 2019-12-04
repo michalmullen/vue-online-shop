@@ -94,6 +94,9 @@ export default {
 		this.checkIfIsLogged();
 		//console.log(this.loggedIn);
 	},
+	destroyed() {
+		localStorage.removeItem("menu");
+	},
 	watch: {
 		// call method if the route changes
 		$route: "checkIfIsLogged"
