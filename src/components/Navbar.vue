@@ -58,7 +58,7 @@
 			>
 			<v-icon class="pl-1">mdi-leaf</v-icon>
 			<v-spacer></v-spacer>
-			<v-menu bottom left>
+			<v-menu bottom left :close-on-content-click="false">
 				<template v-slot:activator="{ on }">
 					<v-btn icon v-on="on">
 						<v-badge v-model="show" color="#D7BC2F" class="text--color" left>
@@ -88,6 +88,11 @@
 							style="width: 80px"
 							type="number"
 						></v-text-field>
+						<v-list-item-action>
+							<v-btn icon>
+								<v-icon>mdi-minus</v-icon>
+							</v-btn>
+						</v-list-item-action>
 					</v-list-item>
 					<v-divider></v-divider>
 					<v-list-item

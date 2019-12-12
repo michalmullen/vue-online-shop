@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import Welcome from "../views/Welcome.vue";
 import About from "../views/About.vue";
 import Menu from "../views/Menu.vue";
-import Basket from "../views/Basket.vue";
 import Admin from "../views/Admin.vue";
 import User from "../views/User.vue";
 import Home from "../views/Home.vue";
@@ -39,14 +38,6 @@ const routes = [
 		path: "/menu",
 		name: "menu",
 		component: Menu,
-		meta: {
-			requiresAuth: true
-		}
-	},
-	{
-		path: "/basket",
-		name: "basket",
-		component: Basket,
 		meta: {
 			requiresAuth: true
 		}
