@@ -1,69 +1,54 @@
 <template>
-  <v-container class="mx-auto">
-    <h1>Your Basket</h1>
-    <v-layout row wrap>
-      <v-flex v-for="card in basket" :key="card.title" xs12 md6 fluid class="pa-4">
-        <v-card>
-          <v-img
-            :src="card.src"
-            class="white--text align-end"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="250px"
-          >
-            <v-card-title v-text="card.title"></v-card-title>
-          </v-img>
-
-          <v-card-text>
-            <v-row align="center" class="mx-0 pb-2">
-              <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-              <div class="grey--text ml-4">4.5 (413)</div>
-            </v-row>
-
-            <!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
-
-            <div>Small plates, salads & sandwiches an inteimate setting with 12 indoor seats plus patio seating.</div>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    <div class="text-right">
-      <v-btn rounded color="secondary">Checkout</v-btn>
-    </div>
-  </v-container>
+	<v-container>
+		<h2 class="display-2 mb-4">Basket</h2>
+		<v-card>
+			<v-list>
+				<template v-for="product in products">
+					<v-list-item-title :key="product.product_id">{{
+						product.title
+					}}</v-list-item-title>
+					<v-divider :key="product.product_id"></v-divider>
+				</template>
+			</v-list>
+		</v-card>
+		<v-container>
+			<v-btn color="success" larger style="float: right;">Go to payment</v-btn>
+		</v-container>
+	</v-container>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    basket: [
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-        flex: 6
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 6
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 6
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 6
-      }
-    ]
-  })
+	data: () => ({
+		products: [
+			{
+				product_id: "kitchen-1",
+				photo: "https://cdn.vuetifyjs.com/images/cards/kitchen.png",
+				title: "QW cooking utensils",
+				sub_title:
+					"Our vintage kitchen utenils delight any chef. Made of bamboo by hand",
+				price: 14.99,
+				qty: 1
+			},
+			{
+				product_id: "kitchen-1",
+				photo: "https://cdn.vuetifyjs.com/images/cards/kitchen.png",
+				title: "QW cooking utensils",
+				sub_title:
+					"Our vintage kitchen utenils delight any chef. Made of bamboo by hand",
+				price: 44.99,
+				qty: 2
+			},
+			{
+				product_id: "kitchen-1",
+				photo: "https://cdn.vuetifyjs.com/images/cards/kitchen.png",
+				title: "QW cooking utensils",
+				sub_title:
+					"Our vintage kitchen utenils delight any chef. Made of bamboo by hand",
+				price: 64.99,
+				qty: 2
+			}
+		]
+	})
 };
 </script>

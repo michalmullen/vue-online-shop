@@ -9,48 +9,78 @@
 					fluid
 					class="pa-4"
 					v-for="item in card.items"
-					:key="item"
+					:key="item.title"
 				>
-					<v-card>
-						<v-img
-							:src="item.image"
-							class="white--text align-end"
-							gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-							height="250px"
-						>
-							<v-card-title>{{ item.title }} (200$)</v-card-title>
-						</v-img>
+					<v-hover v-slot:default="{ hover }">
+						<v-card>
+							<v-img
+								:src="item.image"
+								class="white--text align-end"
+								gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+								height="250px"
+							>
+								<v-card-title>{{ item.title }}</v-card-title>
+								<v-expand-transition>
+									<div
+										v-if="hover"
+										class="d-flex transition-fast-in-fast-out black darken-2 v-card--reveal display-3 white--text"
+										style="height: 100%;"
+									>
+										{{ item.price }}$
+									</div>
+								</v-expand-transition>
+							</v-img>
 
-						<v-card-text style="position: relative">
-							<v-btn absolute dark fab top right color="secondary">
-								<v-icon>mdi-cart</v-icon>
-							</v-btn>
-							<v-row align="center" class="mx-0 pb-2">
-								<v-rating
-									:value="4.5"
-									color="amber"
-									dense
-									half-increments
-									readonly
-									size="14"
-								></v-rating>
+							<v-card-text style="position: relative">
+								<v-btn
+									absolute
+									dark
+									fab
+									top
+									right
+									color="secondary"
+									@click="basket(item.id)"
+								>
+									<v-icon>mdi-cart</v-icon>
+								</v-btn>
+								<v-row align="center" class="mx-0 pb-2">
+									<v-rating
+										:value="4.5"
+										color="amber"
+										dense
+										half-increments
+										readonly
+										size="14"
+									></v-rating>
 
-								<div class="grey--text ml-4">4.5 (413)</div>
-								<v-spacer></v-spacer>
-							</v-row>
+									<div class="grey--text ml-4">4.5 (413)</div>
+									<v-spacer></v-spacer>
+								</v-row>
 
-							<!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
+								<!-- <div class="my-4 subtitle-1 black--text">$ • Italian, Cafe</div> -->
 
-							<div>
-								{{ item.description }}
-							</div>
-						</v-card-text>
-					</v-card>
+								<div>
+									{{ item.description }}
+								</div>
+							</v-card-text>
+						</v-card>
+					</v-hover>
 				</v-flex>
 			</v-layout>
 		</div>
 	</v-container>
 </template>
+
+<style>
+.v-card--reveal {
+	align-items: center;
+	bottom: 0;
+	justify-content: center;
+	opacity: 0.5;
+	position: absolute;
+	width: 100%;
+}
+</style>
 
 <script>
 import Vue from "vue";
@@ -93,20 +123,52 @@ export default {
 			.get("http://localhost/api/menu")
 			.then(response => {
 				this.cards = JSON.parse(response.data.menu);
-				console.log(response.data.menu);
 			})
 			.catch(error => {
 				console.log(error);
 			});
 		// }
-		console.log(this.cards);
 	},
 
 	methods: {
 		basket($id) {
-			let ids = [];
-			ids[-1] = prompt($id);
-			localStorage.setItem("ids", JSON.stringify(ids));
+			// if basket is empty creates localstorage item and adds item
+			if (localStorage.getItem("basket") == null) {
+				Vue.axios
+					.get(`http://localhost/api/item/${$id}`)
+					.then(response => {
+						console.log(response.data);
+						let basketItems = [response.data];
+						basketItems[0].order_amount = 1;
+						localStorage.setItem("basket", JSON.stringify(basketItems));
+					})
+					.catch(error => {
+						console.log(error);
+					});
+			} else {
+				let basket = JSON.parse(localStorage.getItem("basket"));
+				if (basket.some(e => e.id === $id)) {
+					console.log("true");
+					let index = basket.findIndex(x => x.id === $id);
+					basket[index].order_amount += 1;
+					localStorage.setItem("basket", JSON.stringify(basket));
+					console.log(localStorage.getItem("basket"));
+				} else {
+					Vue.axios
+						.get(`http://localhost/api/item/${$id}`)
+						.then(response => {
+							let basketItems = [response.data];
+							basketItems[0].order_amount = 1;
+							basket.push(basketItems[0]);
+							localStorage.setItem("basket", JSON.stringify(basket));
+							console.log(localStorage.getItem("basket"));
+						})
+						.catch(error => {
+							console.log(error);
+						});
+				}
+			}
+			this.$root.$emit("Menu");
 		}
 	}
 };

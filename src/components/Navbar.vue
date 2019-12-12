@@ -58,16 +58,48 @@
 			>
 			<v-icon class="pl-1">mdi-leaf</v-icon>
 			<v-spacer></v-spacer>
-			<v-btn icon link to="/basket">
-				<v-badge v-model="show" color="#D7BC2F" class="text--color" left>
-					<template v-slot:badge>
-						<span>{{ basket }}</span>
-					</template>
-					<v-icon @mouseover="show = true" @mouseout="show = false"
-						>mdi-cart</v-icon
+			<v-menu bottom left>
+				<template v-slot:activator="{ on }">
+					<v-btn icon v-on="on">
+						<v-badge v-model="show" color="#D7BC2F" class="text--color" left>
+							<template v-slot:badge>
+								<span>{{ items.length }}</span>
+							</template>
+							<v-icon @mouseover="show = true" @mouseout="show = false"
+								>mdi-cart</v-icon
+							>
+						</v-badge>
+					</v-btn>
+				</template>
+
+				<v-list>
+					<v-list-item v-for="(item, i) in items" :key="i">
+						<v-list-item-avatar
+							><v-img :src="item.image"></v-img
+						></v-list-item-avatar>
+						<v-list-item-title>{{ item.title }}</v-list-item-title>
+						<v-text-field
+							v-model="item.order_amount"
+							class="mx-4"
+							label="Rows"
+							max="50"
+							min="1"
+							step="1"
+							style="width: 80px"
+							type="number"
+						></v-text-field>
+					</v-list-item>
+					<v-divider></v-divider>
+					<v-list-item
+						><v-list-item-subtitle class="text-right"
+							>Subtotal: <b>30$ </b>
+						</v-list-item-subtitle>
+					</v-list-item>
+					<v-list-item
+						><v-btn block color="primary">Checkout</v-btn></v-list-item
 					>
-				</v-badge>
-			</v-btn>
+				</v-list>
+			</v-menu>
 		</v-app-bar>
 	</div>
 </template>
@@ -83,16 +115,16 @@ export default {
 	data: () => ({
 		drawer: false,
 		show: false,
-		basket: 0,
 		name: "No User",
 		loggedIn: false,
 		account: "mdi-account",
-		admin: false
+		admin: false,
+		items: []
 	}),
 	created() {
 		// gets called when page is loaded
 		this.checkIfIsLogged();
-		//console.log(this.loggedIn);
+		this.getBasket();
 	},
 	destroyed() {
 		localStorage.removeItem("menu");
@@ -100,6 +132,14 @@ export default {
 	watch: {
 		// call method if the route changes
 		$route: "checkIfIsLogged"
+	},
+	mounted() {
+		// listens for basket being updated in menu
+		this.$root.$on("Menu", () => {
+			// updates basket for nav
+			// needs timeout to get updated data, if not will get old data
+			setTimeout(this.getBasket, 500);
+		});
 	},
 	methods: {
 		logout() {
@@ -128,6 +168,11 @@ export default {
 						console.log(response.data);
 						localStorage.setItem("user", JSON.stringify(response.data));
 					});
+			}
+		},
+		getBasket() {
+			if (localStorage.getItem("basket") != null) {
+				this.items = JSON.parse(localStorage.getItem("basket"));
 			}
 		}
 	}
