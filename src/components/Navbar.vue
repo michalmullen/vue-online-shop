@@ -219,6 +219,7 @@ export default {
 				total += element.price * element.order_amount;
 			});
 			this.subtotal = total;
+			localStorage.setItem("subtotal", total);
 			this.getBasket;
 			localStorage.setItem("basket", JSON.stringify(this.items));
 		},

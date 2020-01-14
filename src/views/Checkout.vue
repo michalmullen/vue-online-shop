@@ -37,11 +37,19 @@
 
 				<v-stepper-content step="2">
 					<h1>Point Amount</h1>
-					<h3>Total Point Sum:</h3>
-					<h3>Total Order Sum:</h3>
-					<h3>Point Sum After Purchase:</h3>
+					<h3>Total Order Sum: {{ subtotal }}</h3>
+					<h3>Total Point Sum: {{ user.coins }}</h3>
+					<h3>Point Sum After Purchase: {{ user.coins - subtotal }}</h3>
 
-					<v-btn color="primary" @click="e1 = 3">
+					<v-alert type="warning" v-if="user.coins < subtotal">
+						You do not have enough points!
+					</v-alert>
+
+					<v-btn
+						color="primary"
+						@click="updateUser(), (e1 = 3)"
+						v-if="user.coins >= subtotal"
+					>
 						Continue
 					</v-btn>
 
@@ -57,12 +65,37 @@
 </template>
 
 <script>
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+
+Vue.use(VueAxios, axios);
+
 export default {
 	data: () => ({
 		items: JSON.parse(localStorage.getItem("basket")),
-		subtotal: 0,
+		subtotal: localStorage.getItem("subtotal"),
 		e1: 0,
-		schools: ["Prague Collage", "Teeside University", "CISP"]
-	})
+		schools: ["Prague Collage", "Teeside University", "CISP"],
+		user: JSON.parse(localStorage.getItem("user"))
+	}),
+	methods: {
+		updateUser() {
+			console.log("update");
+			let params = new URLSearchParams();
+			params.append("email", this.user.email);
+			params.append("password", this.user.password);
+			params.append("name", this.user.name);
+			params.append("coins", this.user.coins - this.subtotal);
+			Vue.axios
+				.put(`http://localhost/api/user/${this.user.id}`, params)
+				.then(response => {
+					console.log(response);
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
+	}
 };
 </script>
