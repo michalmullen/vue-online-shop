@@ -60,15 +60,21 @@
 			<v-spacer></v-spacer>
 			<template v-if="items.length === 0">
 				<v-btn icon>
-					<v-icon
-						@mouseover="show = true"
-						@mouseout="show = false"
-						@click="getSubtotal"
-						>mdi-cart</v-icon
-					>
+					<v-badge v-model="show" color="#D7BC2F" class="text--color" left>
+						<template v-slot:badge>
+							<span>{{ items.length }}</span>
+						</template>
+						<v-icon
+							@mouseover="show = true"
+							@mouseout="show = false"
+							@click="getSubtotal"
+							>mdi-cart</v-icon
+						>
+					</v-badge>
 				</v-btn>
 			</template>
 			<v-menu
+				v-model="menu"
 				bottom
 				left
 				:close-on-content-click="false"
@@ -118,7 +124,14 @@
 						</v-list-item-subtitle>
 					</v-list-item>
 					<v-list-item
-						><v-btn block color="primary">Checkout</v-btn></v-list-item
+						><v-btn
+							block
+							color="primary"
+							link
+							to="/checkout"
+							@click="menu = false"
+							>Checkout</v-btn
+						></v-list-item
 					>
 				</v-list>
 			</v-menu>
@@ -141,6 +154,7 @@ export default {
 		loggedIn: false,
 		account: "mdi-account",
 		admin: false,
+		menu: false,
 		items: [],
 		subtotal: 0
 	}),
@@ -165,6 +179,9 @@ export default {
 		});
 	},
 	methods: {
+		closeMenu() {
+			this.menu = false;
+		},
 		logout() {
 			localStorage.clear();
 			Vue.axios.get("http://localhost/api/logout");
@@ -209,6 +226,7 @@ export default {
 			this.items = this.items.filter(function(jsonObject) {
 				return parseInt(jsonObject.id) != $id;
 			});
+			localStorage.setItem("basket", JSON.stringify(this.items));
 			this.getSubtotal;
 		}
 	}
