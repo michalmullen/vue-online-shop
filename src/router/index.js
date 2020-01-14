@@ -6,6 +6,7 @@ import Menu from "../views/Menu.vue";
 import Admin from "../views/Admin.vue";
 import User from "../views/User.vue";
 import Home from "../views/Home.vue";
+import Checkout from "../views/Checkout.vue";
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,14 @@ const routes = [
 		meta: {
 			requiresAuth: true,
 			is_admin: true
+		}
+	},
+	{
+		path: "/checkout",
+		name: "checkout",
+		component: Checkout,
+		meta: {
+			requiresAuth: true
 		}
 	},
 	{

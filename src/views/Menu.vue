@@ -18,6 +18,7 @@
 								class="white--text align-end"
 								gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
 								height="250px"
+								:alt="item.title"
 							>
 								<v-card-title>{{ item.title }}</v-card-title>
 								<v-expand-transition>
