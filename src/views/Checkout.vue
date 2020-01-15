@@ -47,7 +47,7 @@
 
 					<v-btn
 						color="primary"
-						@click="updateUser(), (e1 = 3)"
+						@click="updateUser(), saveOrder(), (e1 = 3)"
 						v-if="user.coins >= subtotal"
 					>
 						Continue
@@ -95,6 +95,18 @@ export default {
 				.catch(error => {
 					console.log(error);
 				});
+		},
+		saveOrder() {
+			Vue.axios
+				.post("http://localhost/api/order", {
+					user_id: this.user.id,
+					user_name: this.user.name,
+					order: JSON.stringify(this.items)
+				})
+				.catch(error => {
+					console.log(error);
+				});
+			localStorage.removeItem("basket");
 		}
 	}
 };
