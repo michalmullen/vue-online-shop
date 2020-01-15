@@ -96,32 +96,7 @@ import Vue from "vue";
 
 export default {
 	data: () => ({
-		cards: [
-			{
-				id: 1,
-				title: "Burger",
-				src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-				price: 20
-			},
-			{
-				id: 2,
-				title: "Salad",
-				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-				price: 10
-			},
-			{
-				id: 3,
-				title: "Spaget",
-				src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-				price: 23
-			},
-			{
-				id: 4,
-				title: "Soup",
-				src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-				price: 16
-			}
-		]
+		cards: []
 	}),
 
 	beforeCreate() {

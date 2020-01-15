@@ -59,6 +59,41 @@
 				</v-card>
 			</v-flex>
 		</v-layout>
+		<h1>Today's Orders</h1>
+		<v-list>
+			<v-list-group
+				v-for="item in items"
+				:key="item.title"
+				v-model="item.active"
+				no-action
+			>
+				<template v-slot:activator>
+					<v-list-item-content>
+						<v-list-item-title
+							>{{ item.id }}: {{ item.user_name }}</v-list-item-title
+						>
+					</v-list-item-content>
+				</template>
+				<template>
+					<v-simple-table>
+						<template v-slot:default>
+							<thead>
+								<tr>
+									<th class="text-left">Name</th>
+									<th class="text-left">Order Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="subItem in item.order" :key="subItem.title">
+									<td>{{ subItem.title }}</td>
+									<td>{{ subItem.order_amount }}</td>
+								</tr>
+							</tbody>
+						</template>
+					</v-simple-table>
+				</template>
+			</v-list-group>
+		</v-list>
 	</v-container>
 </template>
 
@@ -98,7 +133,8 @@ export default {
 				id: 4,
 				items: []
 			}
-		]
+		],
+		items: []
 	}),
 
 	created() {
@@ -106,7 +142,6 @@ export default {
 			.get("http://localhost/api/item")
 			.then(response => {
 				this.menuItems = response.data;
-				console.log(this.menuItems);
 			})
 			.catch(error => {
 				console.log(error);
@@ -115,6 +150,19 @@ export default {
 			.get("http://localhost/api/menu")
 			.then(response => {
 				this.cards = JSON.parse(response.data.menu);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		Vue.axios
+			.get("http://localhost/api/order/day")
+			.then(response => {
+				let data = response.data;
+				for (let i = 0; i < data.length; i++) {
+					data[i].order = JSON.parse(data[i].order);
+				}
+				this.items = data;
+				console.log(data);
 			})
 			.catch(error => {
 				console.log(error);
@@ -128,28 +176,18 @@ export default {
 	beforeDestroy() {
 		let params = new URLSearchParams();
 		params.append("menu", JSON.stringify(this.cards));
-		Vue.axios
-			.put(`http://localhost/api/menu`, params)
-			.then(response => {
-				console.log(response);
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		Vue.axios.put(`http://localhost/api/menu`, params).catch(error => {
+			console.log(error);
+		});
 	},
 
 	methods: {
 		sendData() {
 			let params = new URLSearchParams();
 			params.append("menu", JSON.stringify(this.cards));
-			Vue.axios
-				.put(`http://localhost/api/menu`, params)
-				.then(response => {
-					console.log(response);
-				})
-				.catch(error => {
-					console.log(error);
-				});
+			Vue.axios.put(`http://localhost/api/menu`, params).catch(error => {
+				console.log(error);
+			});
 		},
 		deleteItem(cardId, itemId) {
 			let index = this.cards[cardId].items.findIndex(obj => obj.id == itemId);
