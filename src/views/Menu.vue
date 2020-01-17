@@ -95,7 +95,7 @@ export default {
       // if basket is empty creates localstorage item and adds item
       if (localStorage.getItem("basket") == null) {
         Vue.axios
-          .get(`http://zero.food/api/item/${$id}`)
+          .get(`http://mitch.zerofood.cz/api/item/${$id}`)
           .then(response => {
             console.log(response.data);
             let basketItems = [response.data];
@@ -115,7 +115,7 @@ export default {
           console.log(localStorage.getItem("basket"));
         } else {
           Vue.axios
-            .get(`http://zero.food/api/item/${$id}`)
+            .get(`http://mitch.zerofood.cz/api/item/${$id}`)
             .then(response => {
               let basketItems = [response.data];
               basketItems[0].order_amount = 1;

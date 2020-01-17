@@ -119,7 +119,7 @@ export default {
 
   created() {
     Vue.axios
-      .get("http://zero.food/api/item")
+      .get("http://mitch.zerofood.cz/api/item")
       .then(response => {
         this.menuItems = response.data;
       })
@@ -127,7 +127,7 @@ export default {
         console.log(error);
       });
     Vue.axios
-      .get("http://zero.food/api/menu")
+      .get("http://mitch.zerofood.cz/api/menu")
       .then(response => {
         this.cards = JSON.parse(response.data.menu);
       })
@@ -135,7 +135,7 @@ export default {
         console.log(error);
       });
     Vue.axios
-      .get("http://zero.food/api/order/day")
+      .get("http://mitch.zerofood.cz/api/order/day")
       .then(response => {
         let data = response.data;
         for (let i = 0; i < data.length; i++) {
@@ -156,7 +156,7 @@ export default {
   beforeDestroy() {
     let params = new URLSearchParams();
     params.append("menu", JSON.stringify(this.cards));
-    Vue.axios.put(`http://zero.food/api/menu`, params).catch(error => {
+    Vue.axios.put(`http://mitch.zerofood.cz/api/menu`, params).catch(error => {
       console.log(error);
     });
   },
@@ -165,9 +165,11 @@ export default {
     sendData() {
       let params = new URLSearchParams();
       params.append("menu", JSON.stringify(this.cards));
-      Vue.axios.put(`http://zero.food/api/menu`, params).catch(error => {
-        console.log(error);
-      });
+      Vue.axios
+        .put(`http://mitch.zerofood.cz/api/menu`, params)
+        .catch(error => {
+          console.log(error);
+        });
     },
     deleteItem(cardId, itemId) {
       let index = this.cards[cardId].items.findIndex(obj => obj.id == itemId);

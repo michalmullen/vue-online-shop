@@ -142,7 +142,7 @@ export default {
     login() {
       if (this.$refs.form.validate()) {
         Vue.axios
-          .post("http://zero.food/api/login", {
+          .post("http://mitch.zerofood.cz/api/login", {
             email: this.loginEmail,
             password: this.loginPassword
           })
@@ -174,7 +174,7 @@ export default {
     register() {
       if (this.$refs.form.validate()) {
         Vue.axios
-          .post("http://zero.food/api/user", {
+          .post("http://mitch.zerofood.cz/api/user", {
             name: this.name,
             email: this.email,
             password: this.password
@@ -200,7 +200,7 @@ export default {
     },
     setMenu() {
       Vue.axios
-        .get("http://zero.food/api/menu")
+        .get("http://mitch.zerofood.cz/api/menu")
         .then(response => {
           localStorage.setItem("menu", response.data.menu);
         })
