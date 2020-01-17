@@ -164,7 +164,7 @@ export default {
     },
     logout() {
       localStorage.clear();
-      Vue.axios.get("http://mitch.zerofood.cz/api/logout");
+      Vue.axios.get("http://mitch.zerofood.cz/logout");
       this.$router.push("Welcome");
     },
     checkIfIsLogged() {
@@ -182,9 +182,7 @@ export default {
           this.admin = true;
         }
         Vue.axios
-          .get(
-            `http://mitch.zerofood.cz/api/user/${localStorage.getItem("id")}`
-          )
+          .get(`http://mitch.zerofood.cz/user/${localStorage.getItem("id")}`)
           .then(response => {
             localStorage.setItem("user", JSON.stringify(response.data));
           });
