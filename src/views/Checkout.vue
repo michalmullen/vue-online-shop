@@ -77,7 +77,7 @@ export default {
       params.append("name", this.user.name);
       params.append("coins", this.user.coins - this.subtotal);
       Vue.axios
-        .put(`http://mitch.zerofood.cz/api/user/${this.user.id}`, params)
+        .put(`http://mitch.zerofood.cz/user/${this.user.id}`, params)
         .then(response => {
           console.log(response);
         })
@@ -87,7 +87,7 @@ export default {
     },
     saveOrder() {
       Vue.axios
-        .post("http://mitch.zerofood.cz/api/order", {
+        .post("http://mitch.zerofood.cz/order", {
           user_id: this.user.id,
           user_name: this.user.name,
           order: JSON.stringify(this.items)

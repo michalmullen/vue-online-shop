@@ -48,7 +48,7 @@ export default {
       params.append("name", this.user.name);
       params.append("coins", this.coins);
       Vue.axios
-        .put(`http://mitch.zerofood.cz/api/user/${this.user.id}`, params)
+        .put(`http://mitch.zerofood.cz/user/${this.user.id}`, params)
         .then(response => {
           console.log(response);
         })
