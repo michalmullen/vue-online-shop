@@ -119,7 +119,7 @@ export default {
 
   created() {
     Vue.axios
-      .get("http://mitch.zerofood.cz/item")
+      .get("https://mitch.zerofood.cz/item")
       .then(response => {
         this.menuItems = response.data;
       })
@@ -127,7 +127,7 @@ export default {
         console.log(error);
       });
     Vue.axios
-      .get("http://mitch.zerofood.cz/menu")
+      .get("https://mitch.zerofood.cz/menu")
       .then(response => {
         this.cards = JSON.parse(response.data.menu);
       })
@@ -135,7 +135,7 @@ export default {
         console.log(error);
       });
     Vue.axios
-      .get("http://mitch.zerofood.cz/order/day")
+      .get("https://mitch.zerofood.cz/order/day")
       .then(response => {
         let data = response.data;
         for (let i = 0; i < data.length; i++) {
@@ -156,7 +156,7 @@ export default {
   beforeDestroy() {
     let params = new URLSearchParams();
     params.append("menu", JSON.stringify(this.cards));
-    Vue.axios.put(`http://mitch.zerofood.cz/menu`, params).catch(error => {
+    Vue.axios.put(`https://mitch.zerofood.cz/menu`, params).catch(error => {
       console.log(error);
     });
   },
@@ -166,7 +166,7 @@ export default {
       let params = new URLSearchParams();
       params.append("menu", JSON.stringify(this.cards));
       Vue.axios
-        .put(`http://mitch.zerofood.cz/api/menu`, params)
+        .put(`https://mitch.zerofood.cz/api/menu`, params)
         .catch(error => {
           console.log(error);
         });
