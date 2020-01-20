@@ -166,7 +166,7 @@ export default {
       let params = new URLSearchParams();
       params.append("menu", JSON.stringify(this.cards));
       Vue.axios
-        .put(`https://mitch.zerofood.cz/api/menu`, params)
+        .put(`https://mitch.zerofood.cz/menu`, params)
         .catch(error => {
           console.log(error);
         });
